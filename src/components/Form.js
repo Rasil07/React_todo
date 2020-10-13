@@ -56,7 +56,6 @@ function Form(props) {
         <label>Sort by:</label>
         <select onClick={todoSortHandler}>
           <option value="">---</option>
-
           <option value="importance">Importance(Desc)</option>
           <option value="name">Name(Asc)</option>
         </select>

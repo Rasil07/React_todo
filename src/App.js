@@ -11,22 +11,13 @@ function App() {
   const [inputText, setInputText] = useState("");
 
   const [filterStatus, setFilterStatus] = useState("all");
+
   const [sortStatus, setSortStatus] = useState("");
 
   const [filteredTodos, setTodoFilter] = useState([]);
 
-  //use effect for filter
-  useEffect(() => {
-    applyFilter();
-  }, [todos, filterStatus]);
-
-  useEffect(() => {
-    applySort();
-  }, [sortStatus, filteredTodos]);
-
   const applySort = () => {
-    console.log("filteredTodos", filteredTodos);
-    let toBeSortedTodos = filteredTodos;
+    let toBeSortedTodos = [...filteredTodos];
     switch (sortStatus) {
       case "importance":
         setTodoFilter(
@@ -48,11 +39,10 @@ function App() {
   };
 
   const applyFilter = () => {
-    const todoLiteral = todos;
-    console.log("all todo in applyfilter", todoLiteral);
+    const todoLiteral = [...todos];
+
     switch (filterStatus) {
       case "all":
-        console.log("case all", todoLiteral);
         setTodoFilter(todoLiteral);
         break;
       case "completed":
@@ -66,6 +56,12 @@ function App() {
         break;
     }
   };
+
+  //use effect for filter
+  useEffect(applyFilter, [todos, filterStatus]);
+
+  useEffect(applySort, [sortStatus]);
+
   return (
     <div className="App">
       <div className="content">
