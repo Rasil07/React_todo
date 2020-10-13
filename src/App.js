@@ -6,7 +6,15 @@ import Form from "./components/Form";
 import TodoList from "./components/TodoList";
 
 function App() {
-  const [todos, setTodo] = useState([]);
+  const savedTodos = JSON.parse(localStorage.getItem("todos"));
+
+  if (!savedTodos) {
+    let emptyTodos = [];
+    localStorage.setItem("todos", JSON.stringify(emptyTodos));
+    console.log("no saved todos");
+  }
+
+  const [todos, setTodo] = useState(savedTodos);
 
   const [inputText, setInputText] = useState("");
 
@@ -14,7 +22,7 @@ function App() {
 
   const [sortStatus, setSortStatus] = useState("");
 
-  const [filteredTodos, setTodoFilter] = useState([]);
+  const [filteredTodos, setTodoFilter] = useState([...savedTodos]);
 
   const applySort = () => {
     let toBeSortedTodos = [...filteredTodos];
@@ -56,8 +64,13 @@ function App() {
         break;
     }
   };
-
+  const saveTodosInLocal = () => {
+    let toBeSavedTodos = [...todos];
+    localStorage.setItem("todos", JSON.stringify(toBeSavedTodos));
+  };
   //use effect for filter
+  useEffect(saveTodosInLocal, [todos]);
+
   useEffect(applyFilter, [todos, filterStatus]);
 
   useEffect(applySort, [sortStatus]);

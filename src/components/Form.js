@@ -15,6 +15,17 @@ function Form(props) {
         completed: false,
       },
     ]);
+    // props.setTodo(
+    //   localStorage.setItem("todos", [
+    //     ...props.todos,
+    //     {
+    //       id: Math.floor(Math.random() * 1000),
+    //       todo: props.inputText,
+    //       importance: parseInt(Math.floor(Math.random() * 11)),
+    //       completed: false,
+    //     },
+    //   ])
+    // );
     props.setInputText("");
   }
 
