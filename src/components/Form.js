@@ -15,17 +15,7 @@ function Form(props) {
         completed: false,
       },
     ]);
-    // props.setTodo(
-    //   localStorage.setItem("todos", [
-    //     ...props.todos,
-    //     {
-    //       id: Math.floor(Math.random() * 1000),
-    //       todo: props.inputText,
-    //       importance: parseInt(Math.floor(Math.random() * 11)),
-    //       completed: false,
-    //     },
-    //   ])
-    // );
+
     props.setInputText("");
   }
 
@@ -62,7 +52,7 @@ function Form(props) {
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="uncomplete">Uncompleted</option>
-        </select>{" "}
+        </select>
         &nbsp;
         <label>Sort by:</label>
         <select onClick={todoSortHandler}>

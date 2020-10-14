@@ -17,7 +17,7 @@ function Header(props) {
     );
   }
   return (
-    <div style={{ width: "100%", height: "20%" }}>
+    <div className="header-wrapper">
       <h1 className="header">My ToDo list</h1>
       <div className="overview">
         <div className="total-todos">
