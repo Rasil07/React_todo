@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 // import { useTransition, animated, config } from "react-spring";
 import { Transition } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,8 +14,8 @@ export default function TodoList(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const allTodos = [...props.filteredTodos];
   const itemsPerPage = 5;
-  const totalPage = Math.ceil(allTodos.length / itemsPerPage);
 
+  const totalPage = Math.ceil(allTodos.length / itemsPerPage);
   //paging logic
   const indexOfLastTodo = currentPage * itemsPerPage;
   const indexOfFirstTodo = indexOfLastTodo - itemsPerPage;
@@ -24,7 +24,8 @@ export default function TodoList(props) {
   function changeCurrentPage(value) {
     setCurrentPage(currentPage + value);
   }
-  const items = [1, 2, 3, 4];
+  useEffect(() => setCurrentPage(1), [totalPage]);
+
   return (
     <Fragment>
       <ul className="todo-list">
