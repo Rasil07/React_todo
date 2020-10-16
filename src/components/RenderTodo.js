@@ -59,11 +59,15 @@ function RenderTodo(props) {
           </button>
         </li>
       ) : (
-        <div className={`editTodo ${editTodo ? "show" : "hide"}`}>
-          <form className="form" onSubmit={submitEditTodo}>
+        <div className={`editTodo`}>
+          <form
+            className={`form  ${editTodo ? "show" : "hide"}`}
+            onSubmit={submitEditTodo}
+          >
             <div className="form-group">
               <input
                 name="todo"
+                placeholder={props.todo.todo}
                 onChange={(e) => setEditText(e.target.value)}
                 required
               />
