@@ -1,4 +1,11 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  box-sizing: border-box;
   height: 100vh;
   padding: 0;
   margin: 0;
@@ -10,6 +17,7 @@ body {
   background-attachment: fixed;
   font-family: "Poppins", sans-serif;
 }
+
 .App {
   margin: 0;
   padding: 0;
@@ -35,10 +43,24 @@ body {
   margin: 0 auto;
   padding: 0.5rem;
 }
+@keyframes headerAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .header {
   width: 50%;
+  opacity: 0;
   text-align: center;
   margin: 0 auto;
+  animation-name: headerAnimation;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
 }
 .form {
   display: flex;
@@ -64,7 +86,7 @@ body {
 }
 
 .form-group button {
-  background: #13aec9;
+  /* background: #13aec9; */
   min-height: 2rem;
   width: 2rem;
   border-top-right-radius: 0.3rem;
@@ -87,31 +109,36 @@ body {
 }
 
 .todo-list {
-  width: 90%;
+  width: 400px;
   margin: 1rem auto;
-  padding: 1rem;
   height: 250px;
 }
+
 .todo {
   display: flex;
   align-items: center;
   border-radius: 0.2rem;
-  height: 3rem;
-  width: 60%;
+  height: 3.2rem;
+  width: 100%;
   margin: 0 auto;
   border-bottom: 0.1rem solid white;
-}
-.todo button {
-  height: 2.2rem;
-  width: 2rem;
-  border: none;
-  outline: none;
-  border-radius: 0.3rem;
-
-  color: white;
-}
-.todo button :hover {
   cursor: pointer;
+  padding: 0;
+}
+.editTodo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 3.2rem;
+  border-radius: 0.2rem;
+  border-bottom: 0.1rem solid white;
+}
+.show {
+  display: block;
+}
+.hide {
+  display: none;
 }
 .check {
   background-color: teal;
@@ -119,6 +146,18 @@ body {
 .delete {
   background-color: tomato;
 }
+.todo button {
+  height: 2.2rem;
+  width: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 0.3rem;
+  color: white;
+}
+.todo button :hover {
+  cursor: pointer;
+}
+
 li {
   list-style: none;
 }
@@ -126,7 +165,6 @@ li {
   width: 80%;
   margin: 0 auto;
   display: flex;
-  align-items: center;
 }
 .completed {
   text-decoration: line-through;
@@ -166,6 +204,7 @@ select {
 .disabled {
   opacity: 0.7;
 }
+
 @media screen and (max-device-width: 1040px) {
   .App {
     align-items: center;
@@ -182,7 +221,7 @@ select {
     flex-direction: column;
   }
   .todo-list {
-    width: 100%;
+    width: 80%;
     min-height: 20rem;
     max-height: 20.2rem;
     padding: 0.5rem 0 0 0;
@@ -200,6 +239,7 @@ select {
     width: 90%;
   }
 }
+
 @media screen and (max-device-width: 768px) {
   .App {
     align-items: center;

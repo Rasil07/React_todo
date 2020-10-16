@@ -41,7 +41,7 @@ function Form(props) {
             onChange={inputHandler}
             required
           />
-          <button type="submit">
+          <button type="submit" className="check">
             <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>

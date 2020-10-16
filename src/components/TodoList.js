@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 
-import { Transition } from "react-spring/renderprops";
+import { Transition, config } from "react-spring/renderprops";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -31,6 +31,7 @@ export default function TodoList(props) {
       <ul className="todo-list">
         {
           <Transition
+            config={{ mass: 1.5, tension: 150, friction: 12 }}
             items={[...currentTodos]}
             keys={currentTodos.map((todo, index) => index)}
             from={{ opacity: 0, transform: "translate3d(-25%, 0px, 0px)" }}
