@@ -1,97 +1,64 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
+import React, { useEffect, useState } from "react";
 
+import "./main.css";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  CLEAR_MESSAGE_REQUEST,
+  GET_ALL_TODO_REQUEST,
+} from "./redux/actions/types";
 import Header from "./components/Header";
-import Form from "./components/Form";
-import TodoList from "./components/TodoList";
+import Form from "./components/Form/Form";
+import TodoList from "./components/Todos/TodoList";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
-  const savedTodos = JSON.parse(localStorage.getItem("todos"));
+  const dispatch = useDispatch();
+  const message = useSelector((state) => state.todos.message);
+  const errors = useSelector((state) => state.todos.errors);
+  const [showSideContent, sideContentToggler] = useState(null);
 
-  if (!savedTodos) {
-    let emptyTodos = [];
-    localStorage.setItem("todos", JSON.stringify(emptyTodos));
-    console.log("no saved todos");
-  }
-
-  const [todos, setTodo] = useState(savedTodos);
-
-  const [inputText, setInputText] = useState("");
-
-  const [filterStatus, setFilterStatus] = useState("all");
-
-  const [sortStatus, setSortStatus] = useState("");
-
-  const [filteredTodos, setTodoFilter] = useState([...savedTodos]);
-
-  const applySort = () => {
-    let toBeSortedTodos = [...filteredTodos];
-    switch (sortStatus) {
-      case "importance":
-        setTodoFilter(
-          toBeSortedTodos.sort((a, b) => b.importance - a.importance)
-        );
-        break;
-      case "name":
-        setTodoFilter(
-          toBeSortedTodos.sort((a, b) => a.todo.localeCompare(b.todo))
-        );
-        break;
-      case "":
-        setTodoFilter(toBeSortedTodos);
-        break;
-      default:
-        setTodoFilter(toBeSortedTodos);
-        break;
-    }
-  };
-
-  const applyFilter = () => {
-    const todoLiteral = [...todos];
-
-    switch (filterStatus) {
-      case "all":
-        setTodoFilter(todoLiteral);
-        break;
-      case "completed":
-        setTodoFilter(todoLiteral.filter((todo) => todo.completed === true));
-        break;
-      case "uncomplete":
-        setTodoFilter(todoLiteral.filter((todo) => todo.completed === false));
-        break;
-      default:
-        setTodoFilter(todoLiteral);
-        break;
-    }
-  };
-  const saveTodosInLocal = () => {
-    let toBeSavedTodos = [...todos];
-    localStorage.setItem("todos", JSON.stringify(toBeSavedTodos));
-  };
-  //use effect for filter
-  useEffect(saveTodosInLocal, [todos]);
-
-  useEffect(applyFilter, [todos, filterStatus]);
-
-  useEffect(applySort, [sortStatus]);
+  const loadTodos = useEffect(
+    () => dispatch({ type: GET_ALL_TODO_REQUEST }),
+    []
+  );
+  useEffect(() => {
+    setTimeout(() => dispatch({ type: CLEAR_MESSAGE_REQUEST }), 2500);
+  }, message);
 
   return (
-    <div className="App">
-      <div className="content">
-        <Header todos={todos} />
-        <Form
-          setTodo={setTodo}
-          inputText={inputText}
-          todos={todos}
-          setInputText={setInputText}
-          setFilterStatus={setFilterStatus}
-          setSortStatus={setSortStatus}
+    <div className="content">
+      <div
+        className="hamburgerOpen hambutton"
+        onClick={() => sideContentToggler(true)}
+      >
+        {!showSideContent ? <FontAwesomeIcon icon={faArrowRight} /> : null}
+      </div>
+      <div
+        className={`side-content ${
+          showSideContent === true
+            ? "showSide"
+            : showSideContent === false
+            ? "hideSide"
+            : null
+        }`}
+      >
+        <Header
+          sideContentToggler={sideContentToggler}
+          showSideContent={showSideContent}
         />
-        <TodoList
-          todos={todos}
-          setTodo={setTodo}
-          filteredTodos={filteredTodos}
-        />
+        <Form />
+      </div>
+      <div className="main-content">
+        <div
+          className={`alert ${errors || message === null ? "hide" : "show"}`}
+        >
+          <p>{errors || message}</p>
+        </div>
+        <TodoList />
       </div>
     </div>
   );

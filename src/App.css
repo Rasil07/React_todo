@@ -51,7 +51,6 @@ body {
     opacity: 1;
   }
 }
-
 .header {
   width: 50%;
   opacity: 0;
@@ -68,10 +67,11 @@ body {
   width: 70%;
   margin: 1rem auto;
 }
+
 .form-group {
   width: 90%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 .form-group input {
   min-height: 2rem;
@@ -84,19 +84,10 @@ body {
   margin: 0 0 0 auto;
 }
 
-.form-group button {
-  min-height: 2rem;
-  width: 2rem;
-  border-top-right-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem;
-  color: white;
-  border: none;
-  outline: none;
-  margin: 0 auto 0 0;
-}
 .form-group button :hover {
-  cursor: pointer;
+  cursor: crosshair;
 }
+
 .order-todo {
   width: 50%;
   margin: 0 auto;
@@ -127,10 +118,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 100%; */
   height: 3.2rem;
   border-radius: 0.2rem;
   border-bottom: 0.1rem solid white;
+}
+.add-button {
+  box-sizing: border-box;
+  height: 3rem;
+  width: 4rem;
+  border-radius: 0.3rem;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 @keyframes showanimation {
   from {
